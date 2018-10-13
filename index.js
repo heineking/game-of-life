@@ -17,12 +17,15 @@ class GameOfLife {
       .filter(xy => xy.x >= 0 && xy.y >= 0)
       .filter(xy => xy.x < w && xy.y < h);
   }
-  constructor() {
-    const grid = GameOfLife.createGrid(10, 10, () => false);
+  constructor(grid) {
+    // private vars
+    const $grid = JSON.parse(JSON.stringify(grid));
+
+    // utilities
     this.countOfLiveNeighbors = (cell) => {
       return GameOfLife
-        .neighbors(cell, {h: 10, w: 10})
-        .reduce((count, { x, y }) => count += grid[x][y], 0);
+        .neighbors(cell, {h: $grid.length + 1, w: $grid[0].length + 1})
+        .reduce((count, { x, y }) => count += $grid[x][y], 0);
     };
   }
 

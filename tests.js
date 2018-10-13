@@ -11,9 +11,11 @@ describe('GameOfLife', () => {
   });
   describe('#countOfLiveNeighbors', () => {
     it('should return the count of live neighbors', () => {
-      const game = new GameOfLife();
-      const count = game.countOfLiveNeighbors(0, 0);
-      expect(count).to.equal(0);
+      const grid = GameOfLife.createGrid(10, 10, () => false);
+      grid[0][0] = true;
+      const game = new GameOfLife(grid);
+      const count = game.countOfLiveNeighbors({ x: 1, y: 1 });
+      expect(count).to.equal(1);
     });
   });
   describe('#createGrid', () => {
