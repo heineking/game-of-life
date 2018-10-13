@@ -30,7 +30,23 @@ describe('Cell', () => {
   it('should take in a grid', () =>{
     const cell = new Cell(1, 1, [[]])
     expect(Array.isArray(cell.grid)).to.equal(true);
-  })
+  });
+
+  it('should know if it is alive', () => {
+    // arrange
+    const grid = [
+      []
+    ];
+    const y = 0;
+    const x = 0;
+    grid[x][y] = true;
+
+    // act
+    const cell = new Cell(x, y, grid);
+
+    // assert
+    expect(cell.alive).to.equal(true);
+  });
   // it('should kill a cell if not neighboring two living cells', () => {
     
   // });
