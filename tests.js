@@ -27,8 +27,8 @@ describe('Cell', () => {
     expect(cell.y).to.equal(1);
   });
 
-  it('should have a grid defined', () =>{
-    const cell = new Cell()
+  it('should take in a grid', () =>{
+    const cell = new Cell(1, 1, [[]])
     expect(Array.isArray(cell.grid)).to.equal(true);
   })
   // it('should kill a cell if not neighboring two living cells', () => {
