@@ -49,6 +49,6 @@ describe('Cell', () => {
 
   it('should maintain a list of neigbors', () => {
     const cell = new Cell(0,0, [[]]);
-    expect(cell.neighbors).to.be.a('function');
+    expect(cell.neighbors()).to.be.a('Array');
   });
 });

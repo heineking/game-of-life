@@ -12,7 +12,7 @@ class Cell {
   }
 
   neighbors(){
-
+    return []
   }
 }
 module.exports = {
