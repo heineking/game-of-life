@@ -29,5 +29,17 @@ describe('GameOfLife', () => {
       const neighbors = GameOfLife.neighbors(1, 1, 2, 2);
       expect(neighbors.length).to.equal(3);
     });
+    it('should return five neighbor coordinates when cell is on top row', () => {
+      const neighbors = GameOfLife.neighbors(0, 1, 3, 3);
+      expect(neighbors.length).to.equal(5);
+    });
+    it('should return three neighbor coordinates when cell is top-right', () => {
+      const neighbors = GameOfLife.neighbors(2, 2, 3, 3);
+      expect(neighbors.length).to.equal(3);
+    });
+    it('should return three neighbor coordinates when cell is bottom-left', () => {
+      const neigbhors = GameOfLife.neighbors(0, 2, 3, 3);
+      expect(neigbhors.length).to.equal(3);
+    });
   });
 });
