@@ -1,3 +1,4 @@
+'use strict';
 // index.js
 class Cell {
   constructor(x, y, grid){
