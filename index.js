@@ -18,12 +18,7 @@ class GameOfLife {
       .filter(xy => xy.x < w && xy.y < h);
   }
   static nextCellState(neighbors) {
-    if (neighbors < 2) {
-      return false;
-    } else if (neighbors === 2 || neighbors === 3) {
-      return true;
-    }
-    return false;
+    return neighbors === 2 || neighbors === 3;
   }
   constructor(grid) {
     // private vars
