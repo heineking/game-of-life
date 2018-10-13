@@ -17,15 +17,15 @@ describe('GameOfLife', () => {
     });
   });
   describe('#neighbors', () => {
-    it('should return an array of eight neigbhor coordinates when x > 0 && y > 0', () => {
+    it('should return eight neigbhor coordinates when cell is not on a boundary', () => {
       const neighbors = GameOfLife.neighbors(1, 1, 3, 3);
       expect(neighbors.length).to.equal(8);
     });
-    it('should return an array of three neighbor coordinates when x == 0 && y == 0', () => {
+    it('should return three neighbor coordinates when cell is top-left', () => {
       const neighbors = GameOfLife.neighbors(0, 0, 3, 3);
       expect(neighbors.length).to.equal(3);
     });
-    it('should return an array of three neighbor coordinates when x == 1 && y == 1 and height = 3 && width = 3', () => {
+    it('should return three neighbor coordinates when cell is bottom-right', () => {
       const neighbors = GameOfLife.neighbors(1, 1, 2, 2);
       expect(neighbors.length).to.equal(3);
     });
