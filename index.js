@@ -18,7 +18,14 @@ class GameOfLife {
       .filter(xy => xy.x < w && xy.y < h);
   }
   constructor() {
+    const grid = GameOfLife.createGrid(10, 10, () => false);
+    this.countOfLiveNeighbors = (cell) => {
+      return GameOfLife
+        .neighbors(cell, {h: 10, w: 10})
+        .reduce((count, { x, y }) => count += grid[x][y], 0);
+    };
   }
+
 }
 
 module.exports = {

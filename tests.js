@@ -9,6 +9,13 @@ describe('GameOfLife', () => {
   it('should be a class', () => {
     expect(GameOfLife.toString()).to.contain('class GameOfLife');
   });
+  describe('#countOfLiveNeighbors', () => {
+    it('should return the count of live neighbors', () => {
+      const game = new GameOfLife();
+      const count = game.countOfLiveNeighbors(0, 0);
+      expect(count).to.equal(0);
+    });
+  });
   describe('#createGrid', () => {
     it('should return a 2-dimensional array', () => {
       const grid = GameOfLife.createGrid(10, 10, () => false);
@@ -19,7 +26,6 @@ describe('GameOfLife', () => {
   describe('#neighbors', () => {
     const cell = (x, y) => ({x, y});
     const rect = (h, w) => ({h, w});
-    
     it('should return eight neigbhor coordinates when cell is not on a boundary', () => {
       const neighbors = GameOfLife.neighbors(cell(1, 1), rect(3, 3));
       expect(neighbors.length).to.equal(8);
