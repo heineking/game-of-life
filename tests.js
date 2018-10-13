@@ -10,9 +10,10 @@ describe('GameOfLife', () => {
     expect(GameOfLife.toString()).to.contain('class GameOfLife');
   });
   describe('#createGrid', () => {
-    it('should return an array', () => {
-      const grid = GameOfLife.createGrid();
-      expect(grid).to.be.a('Array');
+    it('should return a 2-dimensional array', () => {
+      const grid = GameOfLife.createGrid(10, 10);
+      expect(grid.length).to.equal(10);
+      grid.forEach(row => expect(row.length).to.equal(10));
     });
   });
 });
