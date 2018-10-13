@@ -17,9 +17,9 @@ describe('GameOfLife', () => {
     });
   });
   describe('#neighbors', () => {
-    it('should return an array', () => {
+    it('should return an array of eight neigbhor coordinates when x > 0 && y > 0', () => {
       const neighbors = GameOfLife.neighbors();
-      expect(neighbors).to.be.an('Array');
+      expect(neighbors.length).to.equal(8);
     });
   });
 });
