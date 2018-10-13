@@ -5,7 +5,7 @@ class GameOfLife {
   static createGrid(x, y, state) {
     return repeat(() => repeat(state, x), y);
   }
-  static neighbors(x, y) {
+  static neighbors(x, y, h, w) {
     /*
       x x x
       x x x
@@ -18,7 +18,8 @@ class GameOfLife {
     ];
     return coordinates
       .filter(xy => xy[0] !== x || xy[1] !== y)
-      .filter(xy => xy[0] >= 0 && xy[1] >= 0);
+      .filter(xy => xy[0] >= 0 && xy[1] >= 0)
+      .filter(xy => xy[0] < x + w && xy[1] < y + h)
   }
   constructor() {
   }
