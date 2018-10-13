@@ -18,8 +18,12 @@ describe('GameOfLife', () => {
   });
   describe('#neighbors', () => {
     it('should return an array of eight neigbhor coordinates when x > 0 && y > 0', () => {
-      const neighbors = GameOfLife.neighbors();
+      const neighbors = GameOfLife.neighbors(1, 1);
       expect(neighbors.length).to.equal(8);
+    });
+    it('should return an array of three neighbor coordinates when x == 0 && y == 0', () => {
+      const neighbors = GameOfLife.neighbors(0, 0);
+      expect(neighbors.length).to.equal(3);
     });
   });
 });
