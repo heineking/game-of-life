@@ -17,28 +17,31 @@ describe('GameOfLife', () => {
     });
   });
   describe('#neighbors', () => {
+    const cell = (x, y) => ({x, y});
+    const rect = (h, w) => ({h, w});
+    
     it('should return eight neigbhor coordinates when cell is not on a boundary', () => {
-      const neighbors = GameOfLife.neighbors(1, 1, 3, 3);
+      const neighbors = GameOfLife.neighbors(cell(1, 1), rect(3, 3));
       expect(neighbors.length).to.equal(8);
     });
     it('should return three neighbor coordinates when cell is top-left', () => {
-      const neighbors = GameOfLife.neighbors(0, 0, 3, 3);
+      const neighbors = GameOfLife.neighbors(cell(0, 0), rect(3, 3));
       expect(neighbors.length).to.equal(3);
     });
     it('should return three neighbor coordinates when cell is bottom-right', () => {
-      const neighbors = GameOfLife.neighbors(1, 1, 2, 2);
+      const neighbors = GameOfLife.neighbors(cell(1, 1), rect(2, 2));
       expect(neighbors.length).to.equal(3);
     });
     it('should return five neighbor coordinates when cell is on top row', () => {
-      const neighbors = GameOfLife.neighbors(0, 1, 3, 3);
+      const neighbors = GameOfLife.neighbors(cell(0, 1), rect(3, 3));
       expect(neighbors.length).to.equal(5);
     });
     it('should return three neighbor coordinates when cell is top-right', () => {
-      const neighbors = GameOfLife.neighbors(2, 2, 3, 3);
+      const neighbors = GameOfLife.neighbors(cell(2, 2), rect(3, 3));
       expect(neighbors.length).to.equal(3);
     });
     it('should return three neighbor coordinates when cell is bottom-left', () => {
-      const neigbhors = GameOfLife.neighbors(0, 2, 3, 3);
+      const neigbhors = GameOfLife.neighbors(cell(0, 2), rect(3, 3));
       expect(neigbhors.length).to.equal(3);
     });
   });

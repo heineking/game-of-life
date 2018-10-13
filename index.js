@@ -5,21 +5,17 @@ class GameOfLife {
   static createGrid(x, y, state) {
     return repeat(() => repeat(state, x), y);
   }
-  static neighbors(x, y, h, w) {
-    /*
-      x x x
-      x x x
-      x x x
-    */
+  static neighbors({x, y}, {h, w}) {
+    const cell = (x, y) => ({x, y});
     const coordinates = [
-      ...repeat(i => [x-1+i, y-1], 3),
-      ...repeat(i => [x-1+i, y], 3),
-      ...repeat(i => [x-1+i, y+1], 3),
+      ...repeat(i => cell(x-1+i,y-1), 3),
+      ...repeat(i => cell(x-1+i, y), 3),
+      ...repeat(i => cell(x-1+i, y+1), 3),
     ];
     return coordinates
-      .filter(xy => xy[0] !== x || xy[1] !== y)
-      .filter(xy => xy[0] >= 0 && xy[1] >= 0)
-      .filter(xy => xy[0] < w && xy[1] < h);
+      .filter(xy => xy.x !== x || xy.y !== y)
+      .filter(xy => xy.x >= 0 && xy.y >= 0)
+      .filter(xy => xy.x < w && xy.y < h);
   }
   constructor() {
   }
