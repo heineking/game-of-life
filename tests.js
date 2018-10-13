@@ -19,13 +19,16 @@ describe('GameOfLife', () => {
     });
   });
   describe('#nextCellState', () => {
-    it('should return true if neighbors is less than two', () => {
-      expect(GameOfLife.nextCellState(1)).to.equal(false);
-      expect(GameOfLife.nextCellState(0)).to.equal(false);
+    it('should return false if current state is true and neighbors is less than two', () => {
+      expect(GameOfLife.nextCellState(true, 1)).to.equal(false);
+      expect(GameOfLife.nextCellState(true, 0)).to.equal(false);
     });
-    it('should return true if neighbors is two or three', () => {
-      expect(GameOfLife.nextCellState(2)).to.equal(true);
-      expect(GameOfLife.nextCellState(2)).to.equal(true);
+    it('should return true if current state is true and neighbors is two or three', () => {
+      expect(GameOfLife.nextCellState(true, 2)).to.equal(true);
+      expect(GameOfLife.nextCellState(true, 2)).to.equal(true);
+    });
+    it('should return true if current state is false and neighbors is three', () => {
+      expect(GameOfLife.nextCellState(false, 3)).to.equal(true);
     });
   });
   describe('#createGrid', () => {
