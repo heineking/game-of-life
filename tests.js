@@ -16,4 +16,10 @@ describe('GameOfLife', () => {
       grid.forEach(row => expect(row.length).to.equal(10));
     });
   });
+  describe('#neighbors', () => {
+    it('should return an array', () => {
+      const neighbors = GameOfLife.neighbors();
+      expect(neighbors).to.be.an('Array');
+    });
+  });
 });

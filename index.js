@@ -5,6 +5,9 @@ class GameOfLife {
   static createGrid(x, y, state) {
     return repeat(() => repeat(state, x), y);
   }
+  static neighbors(x, y) {
+    return [];
+  }
   constructor() {
   }
 }
