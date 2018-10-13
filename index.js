@@ -2,8 +2,8 @@
 const repeat = (f, n) => Array(n).fill(0).map((_, i) => f(i));
 
 class GameOfLife {
-  static createGrid(x, y) {
-    return repeat(() => repeat(() => false, x), y);
+  static createGrid(x, y, state) {
+    return repeat(() => repeat(state, x), y);
   }
   constructor() {
   }

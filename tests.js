@@ -11,7 +11,7 @@ describe('GameOfLife', () => {
   });
   describe('#createGrid', () => {
     it('should return a 2-dimensional array', () => {
-      const grid = GameOfLife.createGrid(10, 10);
+      const grid = GameOfLife.createGrid(10, 10, () => false);
       expect(grid.length).to.equal(10);
       grid.forEach(row => expect(row.length).to.equal(10));
     });
