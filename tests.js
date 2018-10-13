@@ -18,6 +18,12 @@ describe('GameOfLife', () => {
       expect(count).to.equal(1);
     });
   });
+  describe('#nextCellState', () => {
+    it('should return true if neighbors is less than two', () => {
+      expect(GameOfLife.nextCellState(1)).to.equal(false);
+      expect(GameOfLife.nextCellState(0)).to.equal(false);
+    });
+  });
   describe('#createGrid', () => {
     it('should return a 2-dimensional array', () => {
       const grid = GameOfLife.createGrid(10, 10, () => false);

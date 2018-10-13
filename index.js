@@ -17,6 +17,12 @@ class GameOfLife {
       .filter(xy => xy.x >= 0 && xy.y >= 0)
       .filter(xy => xy.x < w && xy.y < h);
   }
+  static nextCellState(neighbors) {
+    if (neighbors < 2) {
+      return false;
+    }
+    return true;
+  }
   constructor(grid) {
     // private vars
     const $grid = JSON.parse(JSON.stringify(grid));
