@@ -17,11 +17,20 @@ describe('Cell', () => {
     expect(Cell.toString()).contains('class Cell');
   });
 
-  it('should have a x,y coordinate', () => {
-    const cell = new Cell();
-    expect(cell.x).to.be.a('number');
-    expect(cell.y).to.be.a('number');
+  it('should have a x coordinate', () => {
+    const cell = new Cell(1);
+    expect(cell.x).to.equal(1);
   });
+
+  it('should have a y coordinate', () => {
+    const cell = new Cell(1,1);
+    expect(cell.y).to.equal(1);
+  });
+
+  it('should have a grid defined', () =>{
+    const cell = new Cell()
+    expect(Array.isArray(cell.grid)).to.equal(true);
+  })
   // it('should kill a cell if not neighboring two living cells', () => {
     
   // });
