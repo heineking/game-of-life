@@ -5,10 +5,16 @@ class Cell {
     this.x = x;
     this.y = y;
     this.grid = grid;
-    this.alive = true;
+  }
+
+  alive() {
+    return this.grid[this.x][this.y];
+  }
+
+  neighbors(){
+
   }
 }
-
 module.exports = {
   Cell,
 };

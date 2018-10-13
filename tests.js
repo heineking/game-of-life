@@ -35,19 +35,20 @@ describe('Cell', () => {
   it('should know if it is alive', () => {
     // arrange
     const grid = [
-      []
+      [true]
     ];
     const y = 0;
     const x = 0;
-    grid[x][y] = true;
 
     // act
     const cell = new Cell(x, y, grid);
 
     // assert
-    expect(cell.alive).to.equal(true);
+    expect(cell.alive()).to.equal(true);
   });
-  // it('should kill a cell if not neighboring two living cells', () => {
-    
-  // });
+
+  it('should maintain a list of neigbors', () => {
+    const cell = new Cell(0,0, [[]]);
+    expect(cell.neighbors).to.be.a('function');
+  });
 });
