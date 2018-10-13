@@ -27,6 +27,7 @@ describe('GameOfLife', () => {
     });
     it('should return an array of three neighbor coordinates when x == 1 && y == 1 and height = 3 && width = 3', () => {
       const neighbors = GameOfLife.neighbors(1, 1, 2, 2);
+      expect(neighbors.length).to.equal(3);
     });
   });
 });

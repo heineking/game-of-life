@@ -19,7 +19,7 @@ class GameOfLife {
     return coordinates
       .filter(xy => xy[0] !== x || xy[1] !== y)
       .filter(xy => xy[0] >= 0 && xy[1] >= 0)
-      .filter(xy => xy[0] < x + w && xy[1] < y + h)
+      .filter(xy => xy[0] < w && xy[1] < h);
   }
   constructor() {
   }
