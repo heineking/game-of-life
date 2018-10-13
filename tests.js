@@ -23,6 +23,10 @@ describe('GameOfLife', () => {
       expect(GameOfLife.nextCellState(1)).to.equal(false);
       expect(GameOfLife.nextCellState(0)).to.equal(false);
     });
+    it('should return true if neighbors is two or three', () => {
+      expect(GameOfLife.nextCellState(2)).to.equal(true);
+      expect(GameOfLife.nextCellState(2)).to.equal(true);
+    });
   });
   describe('#createGrid', () => {
     it('should return a 2-dimensional array', () => {

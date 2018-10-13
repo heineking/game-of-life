@@ -20,8 +20,10 @@ class GameOfLife {
   static nextCellState(neighbors) {
     if (neighbors < 2) {
       return false;
+    } else if (neighbors === 2 || neighbors === 3) {
+      return true;
     }
-    return true;
+    return false;
   }
   constructor(grid) {
     // private vars
