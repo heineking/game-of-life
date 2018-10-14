@@ -1,18 +1,8 @@
 'use strict';
 const repeat = (f, n) => Array(n).fill(0).map((_, i) => f(i));
 const cell = (x, y) => ({x, y});
-
-function createGrid(w, h, state) {
-  return repeat(() => repeat(state, w), h);
-}
-
-const forEachCell = (grid, f) => {
-  for(let x = 0; x < grid[0].length; ++x) {
-    for (let y = 0; y < grid.length; ++y) {
-      f(x, y, grid[x][y]);
-    }
-  }
-};
+const createGrid = (w, h, state) => repeat(() => repeat(state, w), h);
+const forEachCell = (grid, f) => grid.forEach((row, y) => row.forEach((cell, x) => f(x, y, cell)))
 
 function neighbors({x, y}, {h, w}) {
   const coordinates = [
