@@ -98,6 +98,7 @@ function createGame(seed) {
       nextGrid,
       createGame,
       runGame,
+      memoize,
     });
   }
 })(this, function(exports) {
@@ -109,5 +110,7 @@ function createGame(seed) {
     numberOfLiveNeighbors,
     readPlan,
     nextGrid,
+    runGame,
+    memoize,
   });
 });

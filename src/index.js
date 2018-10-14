@@ -12,6 +12,8 @@ const drawBoard = (grid) => {
   return elt('table', {}, ...grid.map(drawRow));
 };
 
+const getElementById = memoize((id) => document.getElementById(id));
+
 let running = false;
 const board = document.querySelector('#board');
 const start = document.getElementById('start');
@@ -28,8 +30,7 @@ start.onclick = () => {
   const game = createGame(grid);
   running = true;
   game((x, y, alive) => {
-    const cellId = `cell-${x}-${y}`;
-    const cell = document.getElementById(cellId);
+    const cell = getElementById(`cell-${x}-${y}`); 
     cell.setAttribute('class', alive ? 'alive' : '');
   }); 
 };
