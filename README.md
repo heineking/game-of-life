@@ -16,7 +16,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ## Installing
 
-To run the project open `./src/index.html` in Chrome. Press the `start` button after providing the height and width parameters.
+To run the project open `./src/index.html` in Chrome. Press the `start` button after providing the height, width, and speed parameters.
 
 ## Running the tests
 
