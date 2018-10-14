@@ -16,11 +16,11 @@ These instructions will get you a copy of the project up and running on your loc
 
 ## Installing
 
-To run the project open `./index.html` in Chrome. Press the `start` button after providing the height and width parameters.
+To run the project open `./src/index.html` in Chrome. Press the `start` button after providing the height and width parameters.
 
 ## Running the tests
 
-The tests are created with `mocha` as the testing framework and `chai` as the assertion library. You can find the tests at `./tests.js`. I did not aim for 100% test coverage because of some dependency on the global `window.document` object.
+The tests are created with `mocha` as the testing framework and `chai` as the assertion library. You can find the tests at `./src/tests.js`. I did not aim for 100% test coverage because of some dependency on the global `window.document` object.
 
 ```
 > npm run install
