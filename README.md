@@ -20,7 +20,7 @@ To run the project open `./src/index.html` in Chrome. Press the `start` button a
 
 ## Running the tests
 
-The tests are created with `mocha` as the testing framework and `chai` as the assertion library. You can find the tests at `./src/game.tests.js`. I did not aim for 100% test coverage because of some dependency on the global `window.document` object.
+The tests are created with `mocha` as the testing framework and `chai` as the assertion library. You can find the tests at `./src/game.tests.js`. I did not aim for 100% test coverage because of some dependency on the global `window` object(s).
 
 ```
 > npm run install

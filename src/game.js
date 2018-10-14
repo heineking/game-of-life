@@ -55,10 +55,7 @@ function nextGrid(grid) {
   return next;
 }
 
-// =============================================================================
-// not tested because they depend on the `window.document` object in the browser
-
-function run(grid, render) {
+function runGame(grid, render) {
   forEachCell(grid, render);
   setTimeout(() => {
     window.requestAnimationFrame(() => run(nextGrid(grid), render));
@@ -68,7 +65,7 @@ function run(grid, render) {
 function createGame(seed) {
   let grid = typeof seed === 'string' ? readPlan(seed) : seed;
   return (render) => {
-    run(grid, render);
+    runGame(grid, render);
   };
 }
 
@@ -88,6 +85,8 @@ function createGame(seed) {
       numberOfLiveNeighbors,
       readPlan,
       nextGrid,
+      createGame,
+      runGame,
     });
   }
 })(this, function(exports) {
