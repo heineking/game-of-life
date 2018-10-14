@@ -5,7 +5,27 @@ const {
   nextCellState,
   numberOfLiveNeighbors,
   readPlan,
+  nextGrid,
 } = require('./index');
+
+describe('#nextGrid', () => {
+  it('should create a blinker', () => {
+    const plan = (
+      `
+        # # # # #
+        # # @ # # 
+        # # @ # #
+        # # @ # #
+        # # # # # 
+      `
+    );
+    let grid = readPlan(plan);
+    grid = nextGrid(grid);
+    expect(grid[1][2]).to.be.true;
+    expect(grid[2][2]).to.be.true;
+    expect(grid[3][2]).to.be.true;
+  });
+});
 
 describe('#readGrid', () => {
   it('should convert a string representation to a grid', () => {

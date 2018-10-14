@@ -30,7 +30,9 @@ function neighbors({x, y}, {h, w}) {
 
 function numberOfLiveNeighbors(grid, cell) {
   return neighbors(cell, { h: grid.length, w: grid[0].length })
-    .reduce((count, { x, y }) => count += grid[x][y], 0);
+    .reduce((count, { x, y }) => {
+      return count + grid[y][x];
+    }, 0)
 }
 
 function nextCellState(current, neighbors) {
@@ -39,12 +41,12 @@ function nextCellState(current, neighbors) {
     : neighbors === 3;
 }
 
-function generateNextGrid(grid) {
+function nextGrid(grid) {
   const h = grid.length;
   const w = grid[0].length;
   const next = createGrid(grid[0].length, grid.length, () => false);
   forEachCell(grid, (x, y, current) => {
-    next[x][y] = nextCellState(current, neighbors({ x, y }, { h, w }));
+    next[x][y] = nextCellState(current, numberOfLiveNeighbors(grid, { x, y }));
   });
   return next;
 }
@@ -55,4 +57,5 @@ module.exports = {
   nextCellState,
   numberOfLiveNeighbors,
   readPlan,
+  nextGrid
 };
