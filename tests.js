@@ -4,13 +4,28 @@ const {
   neighbors,
   nextCellState,
   numberOfLiveNeighbors,
+  readPlan,
 } = require('./index');
 
+describe('#readGrid', () => {
+  it('should convert a string representation to a grid', () => {
+    const plan = (
+      `
+        # # # # 
+        # @ @ # 
+        # @ @ # 
+        # # # #
+      `
+    );
+    const grid = readPlan(plan);
+    expect(grid.length).to.equal(4);
+  });
+});
 describe('#numberOfLiveNeighbors', () => {
   it('should return the count of live neighbors', () => {
     const grid = createGrid(10, 10, () => false);
     grid[0][0] = true;
-    const count = countOfLiveNeighbors(grid, { x: 1, y: 1 });
+    const count = numberOfLiveNeighbors(grid, { x: 1, y: 1 });
     expect(count).to.equal(1);
   });
 });

@@ -4,6 +4,10 @@ const cell = (x, y) => ({x, y});
 const createGrid = (w, h, state) => repeat(() => repeat(state, w), h);
 const forEachCell = (grid, f) => grid.forEach((row, y) => row.forEach((cell, x) => f(x, y, cell)))
 
+function readPlan(plan) {
+  return plan.trim().split(/\r?\n/);
+}
+
 function neighbors({x, y}, {h, w}) {
   const coordinates = [
     ...repeat(i => cell(x-1+i,y-1), 3),
@@ -41,5 +45,6 @@ module.exports = {
   createGrid,
   neighbors,
   nextCellState,
-  numberOfLiveNeighbors
+  numberOfLiveNeighbors,
+  readPlan,
 };
