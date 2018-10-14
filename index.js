@@ -5,7 +5,10 @@ const createGrid = (w, h, state) => repeat(() => repeat(state, w), h);
 const forEachCell = (grid, f) => grid.forEach((row, y) => row.forEach((cell, x) => f(x, y, cell)))
 
 function readPlan(plan) {
-  return plan.trim().split(/\r?\n/);
+  return plan
+    .trim()
+    .split(/\r?\n/)
+    .map((row) => row.trim().split(/\s/));
 }
 
 function neighbors({x, y}, {h, w}) {

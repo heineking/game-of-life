@@ -19,6 +19,7 @@ describe('#readGrid', () => {
     );
     const grid = readPlan(plan);
     expect(grid.length).to.equal(4);
+    expect(grid[0].length).to.equal(4);
   });
 });
 describe('#numberOfLiveNeighbors', () => {
