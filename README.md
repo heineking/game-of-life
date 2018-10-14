@@ -29,4 +29,4 @@ The tests are created with `mocha` as the testing framework and `chai` as the as
 
 ## Future Development
 
-The game works well for smaller grids but the performance starts to degrade as the grid size starts to go above ~20,000 cells. There is noticeable lag in the UI response. To mitigate this I think a buffer could be generated using a (Web Worker)[https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers]. I did not implement this because using a `Web Worker` requires the file to be hosted and not on the file system.
+The game works well for smaller grids but the performance starts to degrade as the grid size starts to go above ~20,000 cells. There is noticeable lag in the UI response. To mitigate this I think a buffer could be generated using a [Web Worker](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers). I did not implement this because using a `Web Worker` requires the file to be hosted and not on the file system.
