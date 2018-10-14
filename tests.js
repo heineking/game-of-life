@@ -20,6 +20,10 @@ describe('#readGrid', () => {
     const grid = readPlan(plan);
     expect(grid.length).to.equal(4);
     expect(grid[0].length).to.equal(4);
+    expect(grid[1][1]).to.be.true;
+    expect(grid[1][2]).to.be.true;
+    expect(grid[2][1]).to.be.true;
+    expect(grid[2][2]).to.be.true;
   });
 });
 describe('#numberOfLiveNeighbors', () => {

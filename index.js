@@ -8,7 +8,12 @@ function readPlan(plan) {
   return plan
     .trim()
     .split(/\r?\n/)
-    .map((row) => row.trim().split(/\s/));
+    .map((row) =>
+      row
+        .trim()
+        .split(/\s/)
+        .map((char) => char === '@')
+    );
 }
 
 function neighbors({x, y}, {h, w}) {
