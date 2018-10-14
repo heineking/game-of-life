@@ -1,4 +1,15 @@
 'use strict';
+const memoize = (fn) => {
+  const cache = {};
+  return (...args) => {
+    const key = JSON.stringify(args);
+    if (cache[key]) {
+      return cache[key];
+    }
+    return (cache[key] = fn(...args));
+  };
+};
+
 const cell = (x, y) => ({x, y});
 const createGrid = (w, h, state) => repeat(() => repeat(state, w), h);
 const dimensions = (grid) => ({ h: grid.length, w: grid[0].length });
@@ -17,7 +28,7 @@ function readPlan(plan) {
     );
 }
 
-function neighbors({x, y}, {h, w}) {
+const neighbors = memoize(({x, y}, {h, w}) => {
   const coordinates = [
     ...repeat(i => cell(x-1+i,y-1), 3),
     ...repeat(i => cell(x-1+i, y), 3),
@@ -32,7 +43,7 @@ function neighbors({x, y}, {h, w}) {
     .filter(notCurrentCell)
     .filter(onlyPositiveCells)
     .filter(withinBounds);
-}
+});
 
 function numberOfLiveNeighbors(grid, cell) {
   return neighbors(cell, dimensions(grid))
@@ -53,7 +64,7 @@ function nextGrid(grid) {
     next[y][x] = nextCellState(current, numberOfLiveNeighbors(grid, { x, y }));
   });
   return next;
-}
+};
 
 function runGame(grid, render) {
   forEachCell(grid, render);
