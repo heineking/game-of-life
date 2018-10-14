@@ -58,7 +58,7 @@ function nextGrid(grid) {
 function runGame(grid, render) {
   forEachCell(grid, render);
   setTimeout(() => {
-    window.requestAnimationFrame(() => run(nextGrid(grid), render));
+    window.requestAnimationFrame(() => runGame(nextGrid(grid), render));
   }, 500);
 }
 
