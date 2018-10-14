@@ -20,7 +20,6 @@ const renderNextGrid = (grid) => {
   });
 };
 
-let timeoutId = null;
 const run = (grid, ms) => {
   setTimeout(() => {
     renderNextGrid(grid);
@@ -41,8 +40,6 @@ start.onclick = () => {
   const speed = +document.getElementById('speed').value;
 
   const seed = createGrid(width, height, () => Math.random() < 0.5);
-
-  board.innerHTML = '';
   board.appendChild(drawGrid(seed));
   run(seed, speed);
   running = true;
