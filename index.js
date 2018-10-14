@@ -16,7 +16,7 @@ function neighbors({x, y}, {h, w}) {
     .filter(xy => xy.x < w && xy.y < h);
 }
 
-function countOfLiveNeighbors(grid, cell) {
+function numberOfLiveNeighbors(grid, cell) {
   return neighbors(cell, { h: grid.length, w: grid[0].length })
     .reduce((count, { x, y }) => count += grid[x][y], 0);
 }
@@ -41,5 +41,5 @@ module.exports = {
   createGrid,
   neighbors,
   nextCellState,
-  countOfLiveNeighbors
+  numberOfLiveNeighbors
 };

@@ -3,10 +3,10 @@ const {
   createGrid,
   neighbors,
   nextCellState,
-  countOfLiveNeighbors,
+  numberOfLiveNeighbors,
 } = require('./index');
 
-describe('#countOfLiveNeighbors', () => {
+describe('#numberOfLiveNeighbors', () => {
   it('should return the count of live neighbors', () => {
     const grid = createGrid(10, 10, () => false);
     grid[0][0] = true;
