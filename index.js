@@ -46,9 +46,23 @@ function nextGrid(grid) {
   const w = grid[0].length;
   const next = createGrid(grid[0].length, grid.length, () => false);
   forEachCell(grid, (x, y, current) => {
-    next[x][y] = nextCellState(current, numberOfLiveNeighbors(grid, { x, y }));
+    next[y][x] = nextCellState(current, numberOfLiveNeighbors(grid, { x, y }));
   });
   return next;
+}
+
+function run(grid, render) {
+  forEachCell(grid, render);
+  setTimeout(() => {
+    window.requestAnimationFrame(() => run(nextGrid(grid), render));
+  }, 500);
+}
+
+function createGame(seed) {
+  let grid = readPlan(seed);
+  return (render) => {
+    run(grid, render);
+  };
 }
 
 module.exports = {
@@ -57,5 +71,5 @@ module.exports = {
   nextCellState,
   numberOfLiveNeighbors,
   readPlan,
-  nextGrid
+  nextGrid,
 };

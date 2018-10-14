@@ -21,9 +21,9 @@ describe('#nextGrid', () => {
     );
     let grid = readPlan(plan);
     grid = nextGrid(grid);
-    expect(grid[1][2]).to.be.true;
+    expect(grid[2][1]).to.be.true;
     expect(grid[2][2]).to.be.true;
-    expect(grid[3][2]).to.be.true;
+    expect(grid[2][3]).to.be.true;
   });
 });
 
