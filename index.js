@@ -65,11 +65,32 @@ function createGame(seed) {
   };
 }
 
-module.exports = {
-  createGrid,
-  neighbors,
-  nextCellState,
-  numberOfLiveNeighbors,
-  readPlan,
-  nextGrid,
-};
+// expose the module for both browser and node.js environments
+(function (global, factory) {
+  if (typeof define === 'function' && define.amd) {
+    define(['exports'], factory);
+  } else if (typeof exports !== 'undefined') {
+    factory(exports);
+  } else {
+    const mod = { exports: {} };
+    factory(mod.exports);
+    Object.assign(global, {
+      createGrid,
+      neighbors,
+      nextCellState,
+      numberOfLiveNeighbors,
+      readPlan,
+      nextGrid,
+    });
+  }
+})(this, function(exports) {
+  'use strict';
+  Object.assign(exports, {
+    createGrid,
+    neighbors,
+    nextCellState,
+    numberOfLiveNeighbors,
+    readPlan,
+    nextGrid,
+  });
+});
