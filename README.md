@@ -9,7 +9,7 @@ This project was done as an exercise from a 10/13/2018 Meetup at [PairColumbus](
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. This is a toy program so there is no support for deploying to a live system.
 
-## Prerequesites
+## Prerequisites
 
 * Node.js 10.x
 * Chrome Browser
