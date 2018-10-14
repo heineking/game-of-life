@@ -6,7 +6,18 @@ const {
   numberOfLiveNeighbors,
   readPlan,
   nextGrid,
+  forEachCell
 } = require('./game');
+
+const gridsAreEqual = (grid1, grid2) => {
+  grid1 = typeof grid1 === 'string' ? readPlan(grid1) : grid1;
+  grid2 = typeof grid2 === 'string' ? readPlan(grid2) : grid2;
+  let areEqual = true; 
+  forEachCell(grid1, (x, y, state) => {
+    areEqual = areEqual && grid1[y][x] === state;
+  });
+  return areEqual;
+};
 
 describe('#nextGrid', () => {
   it('should create a blinker', () => {
@@ -19,15 +30,18 @@ describe('#nextGrid', () => {
         # # # # # 
       `
     );
-    let grid = readPlan(plan);
-    grid = nextGrid(grid);
-    expect(grid[2][1]).to.be.true;
-    expect(grid[2][2]).to.be.true;
-    expect(grid[2][3]).to.be.true;
+    const next = nextGrid(readPlan(plan));
+    expect(gridsAreEqual(next, `
+      # # # # #
+      # # # # #
+      # @ @ @ #
+      # # # # #
+      # # # # # 
+    `)).to.be.true;
   });
 });
 
-describe('#readGrid', () => {
+describe('#readPlan', () => {
   it('should convert a string representation to a grid', () => {
     const plan = (
       `
@@ -40,20 +54,24 @@ describe('#readGrid', () => {
     const grid = readPlan(plan);
     expect(grid.length).to.equal(4);
     expect(grid[0].length).to.equal(4);
-    expect(grid[1][1]).to.be.true;
-    expect(grid[1][2]).to.be.true;
-    expect(grid[2][1]).to.be.true;
-    expect(grid[2][2]).to.be.true;
+    expect(gridsAreEqual(grid, plan)).to.be.true;
   });
 });
+
 describe('#numberOfLiveNeighbors', () => {
   it('should return the count of live neighbors', () => {
-    const grid = createGrid(10, 10, () => false);
-    grid[0][0] = true;
-    const count = numberOfLiveNeighbors(grid, { x: 1, y: 1 });
-    expect(count).to.equal(1);
+    const grid = readPlan(`
+      # # # # #
+      # # # # #
+      # @ # # #
+      # @ @ # #
+      # # # # # 
+    `);
+    const count = numberOfLiveNeighbors(grid, { x: 2, y: 2 });
+    expect(count).to.equal(3);
   });
 });
+
 describe('#nextCellState', () => {
   it('should return false if current state is true and neighbors is less than two', () => {
     expect(nextCellState(true, 1)).to.equal(false);
@@ -67,6 +85,7 @@ describe('#nextCellState', () => {
     expect(nextCellState(false, 3)).to.equal(true);
   });
 });
+
 describe('#createGrid', () => {
   it('should return a 2-dimensional array', () => {
     const grid = createGrid(10, 10, () => false);
@@ -74,6 +93,7 @@ describe('#createGrid', () => {
     grid.forEach(row => expect(row.length).to.equal(10));
   });
 });
+
 describe('#neighbors', () => {
   const cell = (x, y) => ({x, y});
   const rect = (h, w) => ({h, w});

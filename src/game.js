@@ -99,6 +99,7 @@ function createGame(seed) {
       createGame,
       runGame,
       memoize,
+      forEachCell,
     });
   }
 })(this, function(exports) {
@@ -112,5 +113,6 @@ function createGame(seed) {
     nextGrid,
     runGame,
     memoize,
+    forEachCell
   });
 });
