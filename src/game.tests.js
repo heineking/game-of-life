@@ -6,7 +6,7 @@ const {
   numberOfLiveNeighbors,
   readPlan,
   nextGrid,
-} = require('./index');
+} = require('./game');
 
 describe('#nextGrid', () => {
   it('should create a blinker', () => {

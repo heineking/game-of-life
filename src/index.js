@@ -1,103 +1,35 @@
-'use strict';
-const cell = (x, y) => ({x, y});
-const createGrid = (w, h, state) => repeat(() => repeat(state, w), h);
-const dimensions = (grid) => ({ h: grid.length, w: grid[0].length });
-const forEachCell = (grid, f) => grid.forEach((row, y) => row.forEach((cell, x) => f(x, y, cell)));
-const repeat = (f, n) => Array(n).fill(0).map((_, i) => f(i));
+// utilities
+const elt = (name, attrs, ...children) => {
+  const dom = document.createElement(name);
+  Object.keys(attrs).forEach((attr) => dom.setAttribute(attr, attrs[attr]))
+  children.forEach((child) => dom.appendChild(child));
+  return dom;
+};
 
-function readPlan(plan) {
-  return plan
-    .trim()
-    .split(/\r?\n/)
-    .map((row) =>
-      row
-        .trim()
-        .split(/\s/)
-        .map((char) => char === '@')
-    );
-}
+const drawBoard = (grid) => {
+  const drawCell = (x, y) => elt('td', { id: `cell-${x}-${y}` });
+  const drawRow = (row, y) => elt('tr', {}, ...row.map((_, x) => drawCell(x, y)));
+  return elt('table', {}, ...grid.map(drawRow));
+};
 
-function neighbors({x, y}, {h, w}) {
-  const coordinates = [
-    ...repeat(i => cell(x-1+i,y-1), 3),
-    ...repeat(i => cell(x-1+i, y), 3),
-    ...repeat(i => cell(x-1+i, y+1), 3),
-  ];
+let running = false;
+const board = document.querySelector('#board');
+const start = document.getElementById('start');
 
-  const notCurrentCell = (xy) => xy.x !== x || xy.y !== y;
-  const onlyPositiveCells = (xy) => xy.x >= 0 && xy.y >= 0;
-  const withinBounds = (xy) => xy.x < w && xy.y < h;
-
-  return coordinates
-    .filter(notCurrentCell)
-    .filter(onlyPositiveCells)
-    .filter(withinBounds);
-}
-
-function numberOfLiveNeighbors(grid, cell) {
-  return neighbors(cell, dimensions(grid))
-    .reduce((count, { x, y }) => count + grid[y][x], 0)
-}
-
-function nextCellState(current, neighbors) {
-  return current
-    ? neighbors === 2 || neighbors === 3
-    : neighbors === 3;
-}
-
-function nextGrid(grid) {
-  const h = grid.length;
-  const w = grid[0].length;
-  const next = createGrid(grid[0].length, grid.length, () => false);
-  forEachCell(grid, (x, y, current) => {
-    next[y][x] = nextCellState(current, numberOfLiveNeighbors(grid, { x, y }));
-  });
-  return next;
-}
-
-// =============================================================================
-// not tested because they depend on the `window.document` object in the browser
-
-function run(grid, render) {
-  forEachCell(grid, render);
-  setTimeout(() => {
-    window.requestAnimationFrame(() => run(nextGrid(grid), render));
-  }, 500);
-}
-
-function createGame(seed) {
-  let grid = typeof seed === 'string' ? readPlan(seed) : seed;
-  return (render) => {
-    run(grid, render);
-  };
-}
-
-// expose the module for both browser and node.js environments
-(function (global, factory) {
-  if (typeof define === 'function' && define.amd) {
-    define(['exports'], factory);
-  } else if (typeof exports !== 'undefined') {
-    factory(exports);
-  } else {
-    const mod = { exports: {} };
-    factory(mod.exports);
-    Object.assign(global, {
-      createGrid,
-      neighbors,
-      nextCellState,
-      numberOfLiveNeighbors,
-      readPlan,
-      nextGrid,
-    });
+start.onclick = () => {
+  if (running) {
+    alert('Game already running! Refresh browser to start new game');
+    return;
   }
-})(this, function(exports) {
-  'use strict';
-  Object.assign(exports, {
-    createGrid,
-    neighbors,
-    nextCellState,
-    numberOfLiveNeighbors,
-    readPlan,
-    nextGrid,
-  });
-});
+  const height = +document.getElementById('height').value;
+  const width = +document.getElementById('width').value;
+  const grid = createGrid(width, height, () => Math.random() < 0.5);
+  board.appendChild(drawBoard(grid));
+  const game = createGame(grid);
+  running = true;
+  game((x, y, alive) => {
+    const cellId = `cell-${x}-${y}`;
+    const cell = document.getElementById(cellId);
+    cell.setAttribute('class', alive ? 'alive' : '');
+  }); 
+};
