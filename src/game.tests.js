@@ -13,7 +13,7 @@ const gridsAreEqual = (grid1, grid2) => {
   grid1 = typeof grid1 === 'string' ? readPlan(grid1) : grid1;
   grid2 = typeof grid2 === 'string' ? readPlan(grid2) : grid2;
   let areEqual = true; 
-  forEachCell(grid1, (x, y, state) => {
+  forEachCell(grid1, (state, x, y) => {
     areEqual = areEqual && grid1[y][x] === state;
   });
   return areEqual;

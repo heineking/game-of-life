@@ -1,4 +1,5 @@
 'use strict';
+
 const memoize = (fn) => {
   const cache = {};
   return (...args) => {
@@ -13,7 +14,8 @@ const memoize = (fn) => {
 const cell = (x, y) => ({x, y});
 const createGrid = (w, h, state) => repeat(() => repeat(state, w), h);
 const dimensions = (grid) => ({ h: grid.length, w: grid[0].length });
-const forEachCell = (grid, f) => grid.forEach((row, y) => row.forEach((cell, x) => f(x, y, cell)));
+const forEachCell = (grid, f) => grid.forEach((row, y) => row.forEach((cell, x) => f(cell, x, y)));
+const mapCells = (grid, f) => grid.map((row, y) => row.map((cell, x) => f(cell, x, y)));
 const repeat = (f, n) => Array(n).fill(0).map((_, i) => f(i));
 
 function readPlan(plan) {
@@ -59,26 +61,10 @@ function nextCellState(current, neighbors) {
 function nextGrid(grid) {
   const h = grid.length;
   const w = grid[0].length;
-  const next = createGrid(w, h, () => false);
-  forEachCell(grid, (x, y, current) => {
-    next[y][x] = nextCellState(current, numberOfLiveNeighbors(grid, { x, y }));
-  });
-  return next;
+  return mapCells(grid, (cell, x, y) =>
+    nextCellState(cell, numberOfLiveNeighbors(grid, { x, y }))
+  );
 };
-
-function runGame(grid, render) {
-  forEachCell(grid, render);
-  setTimeout(() => {
-    window.requestAnimationFrame(() => runGame(nextGrid(grid), render));
-  }, 500);
-}
-
-function createGame(seed) {
-  let grid = typeof seed === 'string' ? readPlan(seed) : seed;
-  return (render) => {
-    runGame(grid, render);
-  };
-}
 
 // expose the module for both browser and node.js environments
 (function (global, factory) {
@@ -91,28 +77,27 @@ function createGame(seed) {
     factory(mod.exports);
     Object.assign(global, {
       createGrid,
+      forEachCell,
+      mapCells,
+      memoize,
       neighbors,
       nextCellState,
+      nextGrid,
       numberOfLiveNeighbors,
       readPlan,
-      nextGrid,
-      createGame,
-      runGame,
-      memoize,
-      forEachCell,
     });
   }
 })(this, function(exports) {
   'use strict';
   Object.assign(exports, {
     createGrid,
+    forEachCell,
+    mapCells,
+    memoize,
     neighbors,
     nextCellState,
+    nextGrid,
     numberOfLiveNeighbors,
     readPlan,
-    nextGrid,
-    runGame,
-    memoize,
-    forEachCell
   });
 });

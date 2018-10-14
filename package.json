@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha ./src/game.tests.js --watch"
+    "test": "mocha ./src/game.tests.js --watch",
+    "perf": "node ./src/game.perf.js"
   },
   "author": "",
   "license": "MIT",

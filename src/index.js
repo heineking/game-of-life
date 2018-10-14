@@ -1,36 +1,49 @@
 // utilities
+const getElementById = memoize((id) => document.getElementById(id));
+
 const elt = (name, attrs, ...children) => {
   const dom = document.createElement(name);
-  Object.keys(attrs).forEach((attr) => dom.setAttribute(attr, attrs[attr]))
+  Object.keys(attrs).forEach((attr) => dom.setAttribute(attr, attrs[attr]));
   children.forEach((child) => dom.appendChild(child));
   return dom;
 };
 
-const drawBoard = (grid) => {
-  const drawCell = (x, y) => elt('td', { id: `cell-${x}-${y}` });
-  const drawRow = (row, y) => elt('tr', {}, ...row.map((_, x) => drawCell(x, y)));
+const drawGrid = (grid) => {
+  const drawCell = (alive, x, y) => elt('td', { id: `cell-${x}-${y}`, class: alive ? 'alive' : '' });
+  const drawRow = (row, y) => elt('tr', {}, ...row.map((alive, x) => drawCell(alive, x, y)));
   return elt('table', {}, ...grid.map(drawRow));
 };
 
-const getElementById = memoize((id) => document.getElementById(id));
+const renderNextGrid = (grid) => {
+  forEachCell(grid, (alive, x, y) => {
+    getElementById(`cell-${x}-${y}`).setAttribute('class', alive ? 'alive' : '');
+  });
+};
 
-let running = false;
-const board = document.querySelector('#board');
+let timeoutId = null;
+const run = (grid, ms) => {
+  setTimeout(() => {
+    renderNextGrid(grid);
+    run(nextGrid(grid), ms);
+  }, ms);
+};
+
 const start = document.getElementById('start');
+let running = false;
 
 start.onclick = () => {
   if (running) {
-    alert('Game already running! Refresh browser to start new game');
+    alert('Please refresh browser to start new game!');
     return;
   }
-  const height = +document.getElementById('height').value;
   const width = +document.getElementById('width').value;
-  const grid = createGrid(width, height, () => Math.random() < 0.5);
-  board.appendChild(drawBoard(grid));
-  const game = createGame(grid);
+  const height = +document.getElementById('height').value;
+  const speed = +document.getElementById('speed').value;
+
+  const seed = createGrid(width, height, () => Math.random() < 0.5);
+
+  board.innerHTML = '';
+  board.appendChild(drawGrid(seed));
+  run(seed, speed);
   running = true;
-  game((x, y, alive) => {
-    const cell = getElementById(`cell-${x}-${y}`); 
-    cell.setAttribute('class', alive ? 'alive' : '');
-  }); 
 };
