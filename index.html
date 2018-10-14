@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Conways Game of Life</title>
+    <style>
+      table {
+        border-collapse: collapse;
+      }
+      table td {
+        border: 1px solid black;
+        height: 10px;
+        width: 10px;
+      }
+      .alive {
+        background-color: black;
+      }
+      #actions {
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h3>Game of Life</h3>
+    <div id="board"></div>
+    <div id="actions">
+      <button type="button" id="start">Start</button>
+      <input type="number" min="10" max="100" id="height" value="10" />
+      <input type="number" min="10" max="100" id="width" value="10" />
+    </div>
+    <script src="./index.js"></script>
+    <script src="./game.js"></script>
+  </body>
+</html>

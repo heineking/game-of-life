@@ -51,6 +51,9 @@ function nextGrid(grid) {
   return next;
 }
 
+// =============================================================================
+// not tested because they depend on the `window.document` object in the browser
+
 function run(grid, render) {
   forEachCell(grid, render);
   setTimeout(() => {
@@ -59,7 +62,7 @@ function run(grid, render) {
 }
 
 function createGame(seed) {
-  let grid = readPlan(seed);
+  let grid = typeof seed === 'string' ? readPlan(seed) : seed;
   return (render) => {
     run(grid, render);
   };
