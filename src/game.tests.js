@@ -23,20 +23,20 @@ describe('#nextGrid', () => {
   it('should create a blinker', () => {
     const plan = (
       `
-        # # # # #
-        # # @ # # 
-        # # @ # #
-        # # @ # #
-        # # # # # 
+        . . . . .
+        . . @ . . 
+        . . @ . .
+        . . @ . .
+        . . . . . 
       `
     );
     const next = nextGrid(readPlan(plan));
     expect(gridsAreEqual(next, `
-      # # # # #
-      # # # # #
-      # @ @ @ #
-      # # # # #
-      # # # # # 
+      . . . . .
+      . . . . .
+      . @ @ @ .
+      . . . . .
+      . . . . . 
     `)).to.be.true;
   });
 });
@@ -45,10 +45,10 @@ describe('#readPlan', () => {
   it('should convert a string representation to a grid', () => {
     const plan = (
       `
-        # # # # 
-        # @ @ # 
-        # @ @ # 
-        # # # #
+        . . . . 
+        . @ @ . 
+        . @ @ . 
+        . . . .
       `
     );
     const grid = readPlan(plan);
@@ -61,11 +61,11 @@ describe('#readPlan', () => {
 describe('#numberOfLiveNeighbors', () => {
   it('should return the count of live neighbors', () => {
     const grid = readPlan(`
-      # # # # #
-      # # # # #
-      # @ # # #
-      # @ @ # #
-      # # # # # 
+      . . . . .
+      . . . . .
+      . @ . . .
+      . @ @ . .
+      . . . . . 
     `);
     const count = numberOfLiveNeighbors(grid, { x: 2, y: 2 });
     expect(count).to.equal(3);
